@@ -53,14 +53,14 @@ Rails
 * MySQL的安装   
 新立得软件包有，Ubuntu11.04是MySQL5.1，Ubuntu12.04是MySQL5.5
 
-* MySQL GUI的选择
-1. Emma
+* MySQL GUI的选择  
+Emma  
 乱码问题可参考[这篇](http://blog.csdn.net/apoxlo/article/details/6967085)解决  
-1. MySQL Workbench
+MySQL Workbench  
 如果你Ubuntu升级到了12.04，MySQL官网下的很可能无法用，可以到[这里](https://launchpad.net/~olivier-berten/+archive/misc)下载
 
-* 开发工具的选择
-1. IDE可选择RubyMine
-1. 编辑器可选择Sublime   
+* 开发工具的选择  
+IDE可选择RubyMine  
+编辑器可选择Sublime    
 ps:Vi/Emacs还在学习中:)
 ***
