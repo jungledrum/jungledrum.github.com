@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Ubuntu安装及Rails环境搭建</title>
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="http://jungledrum.github.com/feed/" rel="alternate" title="" type="application/atom+xml" />
+    <link rel="stylesheet" href="/media/css/style.css">
+    <link rel="stylesheet" href="/media/css/highlight.css">
+    <script type="text/javascript" src="/media/js/jquery-1.7.1.min.js"></script>
+  </head>
+  <body>
+    <div id="container">
+      <div id="main" role="main">
+        <header>
+        <h1>Ubuntu安装及Rails环境搭建</h1>
+        </header>
+        <nav>
+        <span><a title="home page" class="" href="http://jungledrum.github.com/">home</a></span>
+        <span><a title="about" class="" href="http://jungledrum.github.com/about/">about</a></span>
+        <span><a title="categories" class="" href="http://jungledrum.github.com/categories/">categories</a></span>
+        <span><a title="subscribe by RSS" class="" href="http://jungledrum.github.com/feed/">subscribe</a></span>
+        </nav>
+        <article class="content">
+        <section class="post">
+<h1>Ubuntu安装及Rails环境搭建</h1>
+
+<p>声明：以下问题皆是本人所遇，解决方法也是网上搜集整理，并不一定完全适用你的问题，更不对你执行操作（尤其是Ubuntu的安装）造成的数据丢失等问题负责:)</p>
+
+<hr />
+
+<h2>Ubuntu</h2>
+
+<p>ubuntu镜像版本为11.10-amd64，随后升级至12.04</p>
+
+<ul>
+<li><p>安装<br/>
+从win7下硬盘安装，使用软件easybcd,menu.lst文件内容如下：</p>
+
+<pre><code>  title Install Ubuntu
+  root  (hd0,0)       
+  kernel /vmlinuz boot=casper iso-scan/filename=/ubuntu-9.10-desktop-i386.iso   ro quiet splash locale=zh_CN.UTF-8  
+  initrd /initrd.lz  
+</code></pre></li>
+<li><p>网速问题<br/>
+原因不明。目前解决办法为重装网卡驱动，去官网下载驱动后执行setup.sh脚本进行安装。DNS解析我用的是Google的8.8.8.8和8.8.4.4</p></li>
+<li><p>Chrome无法安装，deb包结构有问题<br/>
+先装chrouim，再<code>sudo apt-get install lzma lzma-dev</code>(貌似是一个7zip解压程序)</p></li>
+<li><p>sudo每次都要输入密码<br/>
+将用户加入sudo组，<code>sudo visudo</code>，具体怎么编辑请自行搜索</p></li>
+<li><p>修改字体<br/>
+安装gnome-tweak-tool</p></li>
+</ul>
+
+
+<hr />
+
+<h2>Rails</h2>
+
+<ul>
+<li><p>安装<br/>
+请参考这个<a href="http://ruby-china.org/wiki/install_ruby_guide">链接</a></p></li>
+<li><p>RVM is not a function 错误解决方法<br/>
+在你的~/.bashrc文件里面加入下面的代码</p>
+
+<pre><code>  [[ -s "$HOME/.rvm/scripts/rvm" ]] &amp;&amp; . "$HOME/.rvm/scripts/rvm"  
+</code></pre>
+
+<p>再执行</p>
+
+<pre><code>  source ~/.bashrc    
+</code></pre></li>
+<li><p>Could not find a JavaScript runtime execjs错误</p>
+
+<pre><code>  sudo add-apt-repository ppa:chris-lea/node.js  
+  sudo apt-get update  
+  sudo apt-get install nodejs  
+</code></pre></li>
+<li><p>MySQL的安装 <br/>
+新立得软件包有，Ubuntu11.04是MySQL5.1，Ubuntu12.04是MySQL5.5</p></li>
+<li><p>MySQL GUI的选择</p></li>
+<li>Emma
+乱码问题可参考<a href="http://blog.csdn.net/apoxlo/article/details/6967085">这篇</a>解决</li>
+<li><p>MySQL Workbench
+如果你Ubuntu升级到了12.04，MySQL官网下的很可能无法用，可以到<a href="https://launchpad.net/~olivier-berten/+archive/misc">这里</a>下载</p></li>
+<li><p>开发工具的选择</p></li>
+<li>IDE可选择RubyMine</li>
+<li>编辑器可选择Sublime <br/>
+ps:Vi/Emacs还在学习中:)</li>
+</ul>
+
+
+<hr />
+
+</section>
+<section class="meta">
+<span class="time">
+  <time datetime="2012-05-01">2012-05-01</time>
+</span>
+<br />
+
+<span class="categories">
+  in categories
+  
+  <a href="http://jungledrum.github.com/categories/#Ruby" title="Ruby">Ruby</a>&nbsp;
+  
+</span>
+
+
+<span class="tags">
+  tagged with 
+  
+</span>
+
+</section>
+<section class="comment">
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'jungledrum'; // required: replace example with your forum shortname
+    var disqus_url = 'http://jungledrum.github.com/2012/05/ubuntu-rails-dev/';
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+<script type="text/javascript">
+$(function(){
+  $(document).keydown(function(e) {
+    var url = false;
+        if (e.which == 37 || e.which == 74) {  // Left arrow and J
+            
+        url = 'http://jungledrum.github.com/2012/04/new-life/';
+        
+        }
+        else if (e.which == 39 || e.which == 75) {  // Right arrow and K
+            
+        }
+        if (url) {
+            window.location = url;
+        }
+  });
+})
+</script>
+
+
+        </article>
+      </div>
+    </div>   
+  </body>
+</html>
