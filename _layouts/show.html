@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title><%= post.title %>-Jungledrum</title>
+    <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" charset="utf-8">
+    <script src="../js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="../js/main.js"></script>
+  </head>
+  <body>
+    <div id="container">
+      <div id="main" role="main">
+
+        <header>
+        <h1><%= post.title %></h1>
+        </header>
+
+        <article class="content">
+        <section class="post">
+        <%= post.content %>
+
+        </section>
+        <section class="meta">
+        <span class="time">
+          <time datetime="<%= post.created_date %>"><%= post.created_date %></time>
+        </span>
+        <span>by <a href="">Jungledrum</a></span>
+        </section>
+      </div>
+    </div>
+  </body>
+</html>

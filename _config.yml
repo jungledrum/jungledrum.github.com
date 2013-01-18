@@ -1,6 +1,0 @@
-markdown: rdiscount
-permalink: /:year/:month/:title/
-url: http://jungledrum.github.com
-author: jungledrum
-pygments: true
-

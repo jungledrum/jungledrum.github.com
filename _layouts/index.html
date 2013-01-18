@@ -1,0 +1,40 @@
+<html>
+
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>
+      Jungledrum
+    </title>
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen"
+    charset="utf-8">
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+  </head>
+
+  <body>
+    <div id="container">
+      <div id="main" role="main">
+        <header>
+        <h1>
+          Jungledrum
+        </h1>
+        </header>
+        <article class="content">
+        <section class="post">
+        <ul class="listing">
+          <% @posts.each do |post| %>
+          <li class="listing-item">
+          <time datetime="<%= post.created_date %>">
+          <%= post.created_date %>
+          </time>
+          <a href="_sites/<%= post.url %>" title="<%= post.title %>"><%= post.title %></a>
+          </li>
+          <% end %>
+        </ul>
+        </section>
+        </article>
+      </div>
+    </div>
+  </body>
+
+  </html

@@ -1,10 +1,3 @@
----
-layout: post
-title: Ubuntu安装及Rails环境搭建
-categories:
-- Ruby
----
-
 声明：以下问题皆是本人所遇，解决方法也是网上搜集整理，并不一定完全适用你的问题，更不对你执行操作（尤其是Ubuntu的安装）造成的数据丢失等问题负责:)
 ***
 Ubuntu
