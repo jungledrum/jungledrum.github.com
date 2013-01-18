@@ -5,11 +5,11 @@ require "./post.rb"
 require "maruku"
 
 @posts = Array.new
-Dir.foreach("_posts") do |x|
+Dir.foreach("posts") do |x|
   unless x == "." or x == ".."
     title = x.match('(?<=.{11})(.*)(?=\..*)')[0]
     created_date = x[0,10]
-    content = File.new("_posts/#{x}").read
+    content = File.new("posts/#{x}").read
     doc = Maruku.new(content)
     content = doc.to_html
 
@@ -22,7 +22,7 @@ end
   -(x.created_date <=> y.created_date)
 end
 
-f = File.new("_layouts/index.html")
+f = File.new("layouts/index.html")
 html = ERB.new(f.read).result(binding)
 
 File.open("index.html", "w") do |x|
@@ -30,9 +30,9 @@ File.open("index.html", "w") do |x|
 end
 
 @posts.each do |post|
-  template = File.new("_layouts/show.html")
+  template = File.new("layouts/show.html")
   html = ERB.new(template.read).result(binding)
-  File.open("_sites/#{post.url}", "w") do |x|
+  File.open("sites/#{post.url}", "w") do |x|
     x.puts(html)
   end
 end
