@@ -12,6 +12,8 @@ $(function(){
       $(this).css("background-color",color2);
     }
     );
+
+  $('code').addClass("prettyprint")
 })
 
 function get_color(){
