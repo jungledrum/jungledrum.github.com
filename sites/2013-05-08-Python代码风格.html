@@ -1,0 +1,319 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Python代码风格-Jungledrum</title>
+    <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" charset="utf-8">
+    <script src="../js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="../js/main.js"></script>
+  </head>
+  <body>
+    <div id="container">
+      <div id="main" role="main">
+
+        <header>
+        <h1>Python代码风格</h1>
+        </header>
+
+        <article class="content">
+        <section class="post">
+        <p><strong>声明：摘自<a href='http://docs.python-guide.org/en/latest/writing/style.html#function-arguments'>Code Style</a></strong></p>
+
+<p>如果你问一个Python程序员他最喜欢Python里的什么，他通常会说高可阅读性。事实上，便于阅读是Python语言设计的核心，这是基于这样一个事实，阅读代码通常比写代码的时候多。</p>
+
+<p>Python代码利于阅读的一个原因是它有一个相对完善的代码风格指南和“Pythonic“原语。</p>
+
+<p>当一个Python老鸟指着一块代码说不够“Pythonic”的时候，通常意味着这段代码没有遵守公共的规范，并且没有用最好的方式表达内在的意图。</p>
+
+<p>在一些例子里，怎样用Python代码来表达一个意图，并没有一致认同的最好的方式。但是，这种例子是很少见的。</p>
+
+<h3 id='id1'>精确的代码</h3>
+
+<p>当有好多黑魔法可用的时候，最精确直接的方式是首选。</p>
+
+<p>Bad</p>
+
+<pre><code>def make_complex(*args):
+    x, y = args
+    return dict(**locals())</code></pre>
+
+<p>Good</p>
+
+<pre><code>def make_complex(x, y):
+    return {&#39;x&#39;: x, &#39;y&#39;: y}</code></pre>
+
+<p>好代码中，接受了x，y并返回一个字典。使用这个函数的开发者通过首尾两行代码很容易就知道怎样使用。</p>
+
+<h3 id='id2'>一行一条语句</h3>
+
+<p>一些复合语句如list comprehensions可打破此例，但把两条不相关的语句写在一行里则是差的实践。</p>
+
+<p>Bad</p>
+
+<pre><code>print &#39;one&#39;; print &#39;two&#39;
+
+if x == 1: print &#39;one&#39;
+
+if &lt;complex comparison&gt; and &lt;other complex comparison&gt;:
+    # do something</code></pre>
+
+<p>Good</p>
+
+<pre><code>print &#39;one&#39;
+print &#39;two&#39;
+
+if x == 1:
+    print &#39;one&#39;
+
+cond1 = &lt;complex comparison&gt;
+cond2 = &lt;other complex comparison&gt;
+if cond1 and cond2:
+    # do something</code></pre>
+
+<h3 id='id3'>函数参数</h3>
+
+<p>向一个函数传递参数有四种方法。</p>
+
+<ol>
+<li>
+<p><strong>Positional arguments</strong>是必选参数并且没有默认值。这是最简单的一种参数形式，可以用在参数是函数的全部意思并且参数顺序是自然的。例如在send(message, recipient)或者point(x, y)中，用户很容易记住这两个参数和顺序。</p>
+
+<p>在这两个例子里，使用参数名调用也是可以的，甚至还可以改变顺序，如send(recipient=&#8217;World&#8217;, message=&#8217;Hello&#8217;)或point(y=2, x=1)，但是和前一种方法相比，降低了可读性而且变得冗长。</p>
+</li>
+
+<li>
+<p><strong>Keyword arguments</strong>是可选参数并且有默认值。当一个函数有两或三个positional 参数时，函数会变得很难记忆，用keyword参数会有所改善。例如一个更复杂的send函数，send(message, to, cc=None, bcc=None)。这里cc和hcc是可选的，并且当没有传入参数是会赋值为None。</p>
+
+<p>可以通过多种方式调用一个有keyword参数的函数。例如，不使用参数名send(&#8216;Hello&#8217;, &#8216;World&#8217;, &#8216;Cthulhu&#8217;, &#8216;God&#8217;)，改变参数顺序send(&#8216;Hello again&#8217;, &#8216;World&#8217;, bcc=&#8217;God&#8217;, cc=&#8217;Cthulhu&#8217;)，但是没有特别原因最好还是使用这种接近函数定义的方式send(&#8216;Hello&#8217;, &#8216;World&#8217;, cc=&#8217;Cthulhu&#8217;, bcc=&#8217;God&#8217;)。</p>
+
+<p>一些可选参数为了以防万一但是看起来好像永远不会用到，按照YAGNI原则，删除可选参数要比添加一个可选参数更困难。</p>
+</li>
+
+<li>
+<p><strong>arbitrary argument list</strong>是第三种参数形式。当一个函数的意图可以通过任意个positional参数更好表达时，可以使用<em>args构造。在函数体内，args会是包含所有positional参数的元组。例如send(message,</em>args)可以这样调用send(&#8216;Hello&#8217;, &#8216;God&#8217;, &#8216;Mom&#8217;, &#8216;Cthulhu&#8217;)，在函数体内args等同于(&#8216;God&#8217;, &#8216;Mom&#8217;, &#8216;Cthulhu&#8217;)。</p>
+
+<p>在这里定义成这样更好send(message, recipients)，调用的时候传入一个列表send(&#8216;Hello&#8217;, <span>&#8216;God&#8217;, &#8216;Mom&#8217;, &#8216;Cthulhu&#8217;</span>)。</p>
+</li>
+
+<li>
+<p><strong>arbitrary keyword argument dictionary</strong>是第四种方法。</p>
+</li>
+</ol>
+
+<h3 id='id4'>返回值</h3>
+
+<pre><code>def complex_function(a, b, c):
+    if not a:
+        return None  # Raising an exception might be better
+    if not b:
+        return None  # Raising an exception might be better
+    # Some complex code trying to compute x from a, b and c
+    # Resist temptation to return x if succeeded
+    if not x:
+        # Some Plan-B computation of x
+    return x  # One single exit point for the returned value x will help
+              # when maintaining the code.</code></pre>
+
+<h3 id='idioms'>Idioms</h3>
+
+<ol>
+<li>
+<p>Unpacking</p>
+
+<pre><code> for index, item in enumerate(some_list):
+     # do something with index and item
+
+ a, b = b, a
+
+ a, (b, c) = 1, (2, 3)</code></pre>
+</li>
+
+<li>
+<p>Create an ignored variable</p>
+
+<pre><code> filename = &#39;foobar.txt&#39;
+ basename, __, ext = filename.rpartition(&#39;.&#39;)</code></pre>
+</li>
+
+<li>
+<p>Create a length-N list of the same thing</p>
+
+<pre><code> four_nones = [None] * 4</code></pre>
+</li>
+
+<li>
+<p>Create a length-N list of lists</p>
+
+<pre><code> four_lists = [[] for __ in xrange(4)]
+ 
+ letters = [&#39;s&#39;, &#39;p&#39;, &#39;a&#39;, &#39;m&#39;]
+ word = &#39;&#39;.join(letters)
+ 
+ d = {&#39;s&#39;: [], &#39;p&#39;: [], &#39;a&#39;: [], &#39;m&#39;: []}
+ l = [&#39;s&#39;, &#39;p&#39;, &#39;a&#39;, &#39;m&#39;]
+
+ def lookup_dict(d):
+     return &#39;s&#39; in d
+ 
+ def lookup_list(l):
+     return &#39;s&#39; in l</code></pre>
+</li>
+</ol>
+
+<h3 id='pep8'>PEP8</h3>
+
+<p>检测代码是否符合PEP8规范</p>
+
+<pre><code>pip install pep8</code></pre>
+
+<h3 id='id5'>约定</h3>
+
+<p>1. 检测变量</p>
+
+<pre><code>Bad:
+
+    if attr == True:
+        print &#39;True!&#39;
+    
+    if attr == None:
+        print &#39;attr is None!&#39;
+
+Good:
+
+    # Just check the value
+    if attr:
+        print &#39;attr is truthy!&#39;
+    
+    # or check for the opposite
+    if not attr:
+        print &#39;attr is falsey!&#39;
+    
+    # or, since None is considered false, explicitly check for it
+    if attr is None:
+        print &#39;attr is None!&#39;</code></pre>
+
+<ol>
+<li>
+<p>访问Dict元素</p>
+
+<p>Bad:</p>
+
+<pre><code> d = {&#39;hello&#39;: &#39;world&#39;}
+ if d.has_key(&#39;hello&#39;):
+     print d[&#39;hello&#39;]    # prints &#39;world&#39;
+ else:
+     print &#39;default_value&#39;</code></pre>
+
+<p>Good:</p>
+
+<pre><code> d = {&#39;hello&#39;: &#39;world&#39;}
+ 
+ print d.get(&#39;hello&#39;, &#39;default_value&#39;) # prints &#39;world&#39;
+ print d.get(&#39;thingy&#39;, &#39;default_value&#39;) # prints &#39;default_value&#39;
+ 
+ # Or:
+ if &#39;hello&#39; in d:
+     print d[&#39;hello&#39;]</code></pre>
+</li>
+
+<li>
+<p>操作List</p>
+
+<p>Bad:</p>
+
+<pre><code> # Filter elements greater than 4
+ a = [3, 4, 5]
+ b = []
+ for i in a:
+     if i &gt; 4:
+         b.append(i)</code></pre>
+
+<p>Good:</p>
+
+<pre><code> b = [i for i in a if i &gt; 4]
+ b = filter(lambda x: x &gt; 4, a)</code></pre>
+
+<p>Bad:</p>
+
+<pre><code> # Add three to all list members.
+ a = [3, 4, 5]
+ count = 0
+ for i in a:
+     a[count] = i + 3
+     count = count + 1</code></pre>
+
+<p>Good:</p>
+
+<pre><code> a = [3, 4, 5]
+ a = [i + 3 for i in a]
+ # Or:
+ a = map(lambda i: i + 3, a)
+ for i, item in enumerate(a):
+     print i + &quot;, &quot; + item
+ # prints
+ # 0, 3
+ # 1, 4
+ # 2, 5</code></pre>
+</li>
+</ol>
+
+<p>1. 读取文件</p>
+
+<pre><code>Bad:
+
+    f = open(&#39;file.txt&#39;)
+    a = f.read()
+    print a
+    f.close()
+Good:
+
+    with open(&#39;file.txt&#39;) as f:
+        for line in f:
+            print line</code></pre>
+
+<p>1. 换行</p>
+
+<pre><code>Bad:
+
+    my_very_big_string = &quot;&quot;&quot;For a long time I used to go to bed early. Sometimes, \
+        when I had put out my candle, my eyes would close so quickly that I had not even \
+        time to say “I’m going to sleep.”&quot;&quot;&quot;
+    
+    from some.deep.module.inside.a.module import a_nice_function, another_nice_function, \
+        yet_another_nice_function
+Good:
+
+    my_very_big_string = (
+        &quot;For a long time I used to go to bed early. Sometimes, &quot;
+        &quot;when I had put out my candle, my eyes would close so quickly &quot;
+        &quot;that I had not even time to say “I’m going to sleep.”&quot;
+    )
+    
+    from some.deep.module.inside.a.module import (
+        a_nice_function, another_nice_function, yet_another_nice_function)</code></pre>
+
+<h3 id='id6'>其他资源</h3>
+
+<ol>
+<li><a href=''>http://c2.com/cgi/wiki?ProgrammingIdiom</a></li>
+
+<li><a href=''>http://stackoverflow.com/questions/302459/what-is-a-programming-idiom</a></li>
+
+<li><a href=''>http://stackoverflow.com/questions/513882/python-list-vs-dict-for-look-up-table</a></li>
+
+<li><a href=''>http://stackoverflow.com/questions/228181/zen-of-python</a></li>
+
+<li><a href=''>http://artifex.org/~hblanks/talks/2011/pep20_by_example.pdf</a></li>
+</ol>
+
+        </section>
+        <section class="meta">
+        <span class="time">
+          <time datetime="2013-05-08">2013-05-08</time>
+        </span>
+        <span>by <a href="/">Jungledrum</a></span>
+        </section>
+      </div>
+    </div>
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+  </body>
+</html>
