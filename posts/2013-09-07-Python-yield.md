@@ -1,6 +1,6 @@
 为了理解yield，你必须理解什么是generator，而为了理解generator，先要理解iterable
 
-##可迭代（Iterable）
+##1. 可迭代（Iterable）
 
 当你创建一个list的时候，你可以依次访问它的子项，这就叫迭代：
 
@@ -22,7 +22,7 @@ mylist是可迭代的。当你使用list comprehension时，你创建了一个li
 
 当你可以使用“for... in...”语句的时候，它就是一个可迭代对象，如：lists，strings，files等。这些可迭代对象用起来很方便，但是它会把所有值都存在内存里。
 
-##产生器（Generators）
+##2. 产生器（Generators）
 
 Generators就是迭代器，但是你只能遍历一次。这是因为它并不会把所有值都存在内存里，它们在运行的时候产生下一个值。
 
@@ -35,7 +35,7 @@ Generators就是迭代器，但是你只能遍历一次。这是因为它并不�
 
 使用()替换[]会产生一样的效果，区别在于你只能遍历一次，你不能再使用`for i in mygenerator`。
 
-##Yield
+##3.Yield
 
 Yield是一个关键词，用起来很像return，返回一个generator
 
@@ -64,10 +64,9 @@ for语句第一次调用generator对象的时候，它会从头执行你的代�
 
 generator会认为是空的，一但这个函数没有碰到yield。这有可能是循环结束，也有可能是你的if/else没写对。
 
-##generator的高级用法
+##4. generator的高级用法
 
-
-####控制一个generator枯竭
+###4.1 控制一个generator枯竭
 
     >>> class Bank(): # let's create a bank, building ATMs
     ...    crisis = False
@@ -106,7 +105,7 @@ generator会认为是空的，一但这个函数没有碰到yield。这有可能
     ...
 It can be useful for various things like controlling access to a resource.
 
-###Itertools，你最好的朋友
+###4.2 Itertools，你最好的朋友
 
 iteratools模块包含了很多特殊的函数用来处理可迭代的对象。想要复制一个generator，链接两个generator，在一行代码内给一个嵌套list进行分组，不通过额外list来Map/Zip。你只需要`import itertools`
 
@@ -142,6 +141,6 @@ iteratools模块包含了很多特殊的函数用来处理可迭代的对象。�
      (4, 3, 1, 2),
      (4, 3, 2, 1)]
 
-###理解迭代的内部机制
+###4.3 理解迭代的内部机制
 
 迭代是一个处理可迭代对象和迭代器的过程。可迭代对象是一个可以返回迭代器的对象。迭代器是一个让你迭代一个可迭代对象的对象。
