@@ -28,7 +28,7 @@ for file_name in files:
   posts.append(post)
 
 # sort by date
-posts = sorted(posts, key=lambda x:x.created_at)
+posts = sorted(posts, key=lambda x:x.created_at, reverse=True)
 
 # render index
 
