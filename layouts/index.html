@@ -22,14 +22,14 @@
         <article class="content">
         <section class="post">
         <ul class="listing">
-          <% @posts.each do |post| %>
+          {% for post in posts %}
           <li class="listing-item">
-          <time datetime="<%= post.created_date %>">
-          <%= post.created_date %>
+          <time datetime="{{ post.created_at }}">
+          {{ post.created_at }}
           </time>
-          <a href="sites/<%= post.url %>" title="<%= post.title %>"><%= post.title %></a>
+          <a href="sites/{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
           </li>
-          <% end %>
+          {% endfor %}
         </ul>
         </section>
         </article>

@@ -16,49 +16,38 @@
 
         <article class="content">
         <section class="post">
-        <p>A网站框住了B网站</p>
-
-<pre><code>&lt;iframe src=&quot;http://yourwebsite.com&quot;&gt;&lt;/iframe&gt;</code></pre>
-
+          <p>A网站框住了B网站</p>
+<pre><code>&lt;iframe src="http://yourwebsite.com"&gt;&lt;/iframe&gt;
+</code></pre>
 <p>B网站防止被框，加入如下代码（变种有很多，意思相同）</p>
-
-<pre><code>if (top != self) { top.location.replace(self.location.href); }  </code></pre>
-
-<p>A网站破解方法如下：</p>
-
+<pre><code>if (top != self) { top.location.replace(self.location.href); }
+</code></pre>
+<p>A网站破解方法如下：  </p>
 <ul>
 <li>
-<p>这种方法是在网上搜到的大多数解决方法，但是仅支持IE</p>
-
-<pre><code>var location = &quot;&quot;  
-//或者  
-var location = document.location  </code></pre>
+<p>这种方法是在网上搜到的大多数解决方法，但是仅支持IE      </p>
+<p>var location = ""<br />
+  //或者<br />
+  var location = document.location  </p>
 </li>
-
 <li>
-<p>在stackoverflow上找到的一个另一种方法，暂时发现仅不支持opera浏览器</p>
-
-<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
-  var prevent_bust = 0  
-  window.onbeforeunload = function() { prevent_bust++ }  
-  setInterval(function() {  
-      if (prevent_bust &gt; 0) {  
-          prevent_bust -= 2  
-          window.top.location = &#39;http://server-which-responds-with-204.com&#39; 
-        }  
-  }, 1)  
-&lt;/script&gt;</code></pre>
+<p>在stackoverflow上找到的一个另一种方法，暂时发现仅不支持opera浏览器 </p>
+<p><script type="text/javascript">
+    var prevent_bust = 0<br />
+    window.onbeforeunload = function() { prevent_bust++ }<br />
+    setInterval(function() {<br />
+        if (prevent_bust &gt; 0) {<br />
+            prevent_bust -= 2<br />
+            window.top.location = 'http://server-which-responds-with-204.com' 
+          }<br />
+    }, 1)<br />
+  </script></p>
 </li>
 </ul>
-
 <p>简单介绍一下原理，B网站改变top.location的行为会触发window.onbeforeunload事件A网站捕获到以后，将location指向一个“204页面“</p>
-
 <p>但是这样导致了另外一个问题，你会发现A页面所有链接都失效了，你可以做如下改动prevent_bust -= 3，一切OK了。</p>
-
 <p>但是你仍然要注意，这种方法仅在B网站加入了如上防被框代码才有效，如果B去掉了这段代码，你也要做相应的改动。这并不是一劳永逸的方法。</p>
-
 <p>很遗憾，正如你看到的那样，没有什么完美的方法。</p>
-
         </section>
         <section class="meta">
         <span class="time">
