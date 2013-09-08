@@ -1,3 +1,5 @@
+**原文：[What is a metaclass in Python?](http://stackoverflow.com/questions/100003/what-is-a-metaclass-in-python)**
+
 ##1. class是对象
 
 在理解元类（metaclass），你需要掌握类（class）。Python从Smalltalk语言中借鉴了关于类的奇特特性。
