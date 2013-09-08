@@ -336,6 +336,7 @@ class UpperAttrMetaclass(type):
         return super(UpperAttrMetaclass, cls).__new__(cls, clsname, bases, uppercase_attr)
 </code></pre>
 <p>这是就是全部，关于元类，没有什么东西了。</p>
+<p><strong>原文：<a href="http://stackoverflow.com/questions/100003/what-is-a-metaclass-in-python">What is a metaclass in Python?</a></strong></p>
 <p>使用了元类的代码很复杂并不是应为元类，而是你通常使用元类来扭曲一些依赖内省(introspection)，操作继承，变量，类如<code>__dict__</code>，等等。</p>
 <p>事实上，元类在玩黑魔法的时候很有用，因此很复杂，但它本身是简单的：</p>
 <ul>
