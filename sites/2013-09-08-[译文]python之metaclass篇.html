@@ -345,7 +345,7 @@ class UpperAttrMetaclass(type):
 <li>修改类</li>
 <li>返回修改的类</li>
 </ul>
-<h2>6. 为什么你应该用元类而不是函数?</h2>
+<h2>6. 为什么你应该用类而不是函数?</h2>
 <p>既然<strong>metaclass</strong>可以接受任何可调用的，为什么还要用类，因为它更复杂吗？</p>
 <p>这里有若干原因：</p>
 <ul>
@@ -362,14 +362,16 @@ class UpperAttrMetaclass(type):
 <p>Python Guru Tim Peters</p>
 </blockquote>
 <p>元类的主要用途是创建API。一个典型的例子就是Django的ORM。</p>
-<p>它允许你这样定义：
-    class Person(models.Model):
-    name = models.CharField(max_length=30)
-    age = models.IntegerField()
-但是你这样做：
-    guy = Person(name='bob', age='35')
-    print guy.age
-它不会返回一个<code>IntegerField</code>对象。它会返回一个<code>int</code>,并且你甚至可以直接从数据库里得到它。</p>
+<p>它允许你这样定义：</p>
+<pre><code>class Person(models.Model):
+name = models.CharField(max_length=30)
+age = models.IntegerField()
+</code></pre>
+<p>但是你这样做：</p>
+<pre><code>guy = Person(name='bob', age='35')
+print guy.age
+</code></pre>
+<p>它不会返回一个<code>IntegerField</code>对象。它会返回一个<code>int</code>,并且你甚至可以直接从数据库里得到它。</p>
 <p>这可能是因为<code>models.Model</code>定义了<code>__metaclass__</code>，并且使用了一些魔法将你定义的<code>Person</code>转为成了数据库字段的钩子。</p>
 <p>Django通过简单的API和元类使一些复杂的钩子看起来很简单。</p>
 <h2>8. 结语</h2>
@@ -385,9 +387,9 @@ class UpperAttrMetaclass(type):
 <p>其次，元类是复杂的。你可能不会想在简单的类修改的时候用它。你可以使用两种技术来改变类：</p>
 <ul>
 <li>猴子补丁</li>
-<li>类装饰器
-99%的情况你想要修改类的时候，你可以用上面这两个东西。</li>
+<li>类装饰器</li>
 </ul>
+<p>99%的情况你想要修改类的时候，你可以用上面这两个东西。</p>
 <p>不过99%的情况下，你根本不需要修改类 :-)</p>
         </section>
         <section class="meta">

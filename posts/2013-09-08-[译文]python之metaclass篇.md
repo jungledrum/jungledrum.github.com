@@ -386,7 +386,7 @@ Foo里有属性__metaclass__吗？
 - 修改类
 - 返回修改的类
 
-##6. 为什么你应该用元类而不是函数?
+##6. 为什么你应该用类而不是函数?
 
 既然__metaclass__可以接受任何可调用的，为什么还要用类，因为它更复杂吗？
 
@@ -409,12 +409,16 @@ Foo里有属性__metaclass__吗？
 元类的主要用途是创建API。一个典型的例子就是Django的ORM。
 
 它允许你这样定义：
+
     class Person(models.Model):
     name = models.CharField(max_length=30)
     age = models.IntegerField()
+
 但是你这样做：
+
     guy = Person(name='bob', age='35')
     print guy.age
+    
 它不会返回一个`IntegerField`对象。它会返回一个`int`,并且你甚至可以直接从数据库里得到它。
 
 这可能是因为`models.Model`定义了`__metaclass__`，并且使用了一些魔法将你定义的`Person`转为成了数据库字段的钩子。
@@ -439,6 +443,7 @@ type其实是它自己的元类。你不能用纯Python重新创造这个东西�
 
 - 猴子补丁
 - 类装饰器
+
 99%的情况你想要修改类的时候，你可以用上面这两个东西。
 
 不过99%的情况下，你根本不需要修改类 :-)
