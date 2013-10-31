@@ -1,0 +1,119 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>[译文]Web开发必知必会-Jungledrum</title>
+    <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" charset="utf-8">
+    <script src="../js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="../js/main.js"></script>
+  </head>
+  <body>
+    <div id="container">
+      <div id="main" role="main">
+
+        <header>
+        <h1>[译文]Web开发必知必会</h1>
+        </header>
+
+        <article class="content">
+        <section class="post">
+          <p><strong>原文：<a href="http://programmers.stackexchange.com/questions/46716/what-should-every-programmer-know-about-web-development">What should every programmer know about web development?</a></strong></p>
+<p>注：原文链接太多，请自行去原文中找引用的文章和工具链接</p>
+<h3>界面和用户体验</h3>
+<ol>
+<li>当心浏览器不兼容问题，还有不同操作系统上渲染效果。</li>
+<li>考虑除了主流浏览器，用户还有可能使用哪些设备访问？例如：手机，屏幕阅读器，搜索引擎等。</li>
+<li>分批部署：如何在不影响用户的情况下部署更新。拥有一个或多个测试或者分批部署环境来实现架构、代码或内容的变更，并且在不打断任何事情的情况下部署。有一个自动化的部署方式，这通常需要一个版本控制系统和自动化构建系统。</li>
+<li>不要直接给用户显示不友好的错误信息。</li>
+<li>不要直接显示用户的邮箱地址，这会被发垃圾邮件的人给爬去。</li>
+<li>给用户产生的链接加上<code>rel="nofollow"</code>，防止spam。</li>
+<li><a href="http://www.codinghorror.com/blog/2009/02/rate-limiting-and-velocity-checking.html">构建良好的访问频率限制</a></li>
+<li>学习如何<a href="http://en.wikipedia.org/wiki/Progressive_enhancement">渐进增强</a></li>
+<li>避免表单刷新重复提交</li>
+</ol>
+<h3>安全</h3>
+<ol>
+<li>去读<a href="https://www.owasp.org/index.php/Category:OWASP_Guide_Project">OWASP文档</a></li>
+<li><a href="http://en.wikipedia.org/wiki/SQL_injection">SQL注入</a></li>
+<li>不要信任用户输入和随着请求带来的东西（包括cookie和表单隐藏域）</li>
+<li>使用盐来加密密码，防止彩虹表攻击。使用速度慢的哈希算法，例如bcrypt或scrypt，来存储密码。避免直接使用MD5或者SHA。参考<a href="http://codahale.com/how-to-safely-store-a-password/">如何安全存储密码</a></li>
+<li><a href="http://stackoverflow.com/questions/1581610/how-can-i-store-my-users-passwords-safely/1581919#1581919">不要用你自己异想天开的认证系统</a>。你很容易在一些细微的地方，不容易测试的地方出错，而且你还一直不会发现，直到你被黑了。</li>
+<li>知道如何处理信用卡</li>
+<li>在登录页面和任何敏感数据出现的地方使用HTTPS</li>
+<li>XSS</li>
+<li>CSRF</li>
+<li>打上最新的补丁</li>
+<li>确保数据库连接是安全的</li>
+<li>及时获取最新的攻击技术和平台缺陷</li>
+<li>读 The Google Browser Security Handbook</li>
+<li>读 The Web Application Hacker's Handbook</li>
+</ol>
+<h3>性能</h3>
+<ol>
+<li>如果需要，使用缓存。正确理解HTTP缓存。</li>
+<li>优化图片。不要使用一个20KB的图片做平铺背景。</li>
+<li>学习gzip，压缩页面大小。</li>
+<li>合并css和js</li>
+<li>看看雅虎和其他的前端最佳实践</li>
+<li>使用CSS Image Sprites</li>
+<li>繁忙的站点应该考虑跨域名拆分组件</li>
+<li>静态内容使用CDN和独立域名</li>
+<li>最小化HTTP请求</li>
+<li>压缩JS</li>
+<li>搞个favicon.ico，要不然浏览器会不断请求它，这会浪费你的带宽。</li>
+</ol>
+<h3>SEO</h3>
+<ol>
+<li>使用浏览器友好的URL，例如，使用<code>example.com/pages/45-article-title</code>而不是<code>example.com/index.php?page=45</code></li>
+<li>使用#!替换#，搞清楚为什么。</li>
+<li>不用让链接叫做“点我”，浪费SEO机会。</li>
+<li>站点地图sitemap.xml</li>
+<li><code>&lt;link rel="canonical" .../&gt;</code></li>
+<li>Google Webmaster Tools</li>
+<li>Google Analytics</li>
+<li>robots.txt</li>
+<li>使用<code>301 Moved Permanently</code>来重定向www.example.com到example.com，避免google拆分不同站点排名</li>
+<li>小心恶意爬虫</li>
+</ol>
+<h3>技术</h3>
+<ol>
+<li>理解HTTP，像GET,POST,sessions,cookies等，知道stateless是什么意思</li>
+<li>符合W3C规范</li>
+<li>浏览器是如何处理JavaScript的</li>
+<li>浏览器是如何加载css，js的，为何要把js放到尾部</li>
+<li>理解js沙盒，尤其当你要使用iframes的时候</li>
+<li>记住js会被禁用</li>
+<li>搞清301和302的区别</li>
+<li>尽可能的了解你的开发平台</li>
+<li>使用normalize.css</li>
+<li>使用js框架</li>
+<li>别造轮子</li>
+<li>与上条相对应，别一上来就用了20个第三方库，搞清楚你需要什么</li>
+</ol>
+<h3>Bug修正</h3>
+<ol>
+<li>20%的时间开发代码，80%的时间维护它</li>
+<li>搞个良好的错误报告方案</li>
+<li>让用户可以联系到你</li>
+<li>文档，还有未来要支持什么</li>
+<li>频繁备份（还要确保这些备份是可用的），不光要有备份方案，还要有恢复方案</li>
+<li>日志啊,日志。网站挂了你好能找到问题。</li>
+<li>日志要捕获处理的异常和没处理的异常，然后分析日志，找出关键问题。</li>
+</ol>
+        </section>
+        <section class="meta">
+        <span class="time">
+          <time datetime="2013-10-30">2013-10-30</time>
+        </span>
+        <span>by <a href="/">Jungledrum</a></span>
+        </section>
+      </div>
+    </div>
+
+    <script src="http://cdn.staticfile.org/highlight.js/7.3/highlight.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://cdn.staticfile.org/highlight.js/7.3/styles/monokai.min.css">
+    <script type="text/javascript">
+      hljs.tabReplace = '    '; //4 spaces
+      hljs.initHighlighting();
+    </script>
+  </body>
+</html>
